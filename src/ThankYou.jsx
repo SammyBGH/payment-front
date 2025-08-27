@@ -1,3 +1,4 @@
+// frontend/src/ThankYou.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ThankYou.css";
@@ -9,14 +10,10 @@ export default function ThankYou() {
   useEffect(() => {
     // Retrieve payment info from localStorage
     const info = localStorage.getItem("paymentInfo");
-    if (info) {
-      setPaymentInfo(JSON.parse(info));
-    }
+    if (info) setPaymentInfo(JSON.parse(info));
 
     // Redirect to home after 10 seconds
-    const timer = setTimeout(() => {
-      navigate("/");
-    }, 10000);
+    const timer = setTimeout(() => navigate("/"), 10000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -32,7 +29,9 @@ export default function ThankYou() {
           <p>
             Amount paid: <strong>GHS {paymentInfo.amount}</strong>
           </p>
-          <p>Payment reference: <strong>{paymentInfo.reference}</strong></p>
+          <p>
+            Payment reference: <strong>{paymentInfo.reference}</strong>
+          </p>
         </>
       ) : (
         <p>Your payment was successful.</p>

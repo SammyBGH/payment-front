@@ -1,5 +1,5 @@
-// frontend/src/App.jsx or wherever you have routes
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// frontend/src/App.jsx
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import PaymentPage from "./PaymentPage";
 import ThankYou from "./ThankYou";
 

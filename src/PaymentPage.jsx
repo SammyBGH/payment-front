@@ -1,3 +1,4 @@
+// frontend/src/PaymentPage.jsx
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +6,7 @@ import "./PaymentPage.css";
 
 export default function PaymentPage() {
   const SITE_TYPES = {
-    "Static Website": 3,
+    "Static Website": 100,
     "Dynamic Website": 500,
     "E-commerce Website": 900,
   };
@@ -31,7 +32,7 @@ export default function PaymentPage() {
     try {
       const token = localStorage.getItem("token"); // JWT if needed
       await axios.post(
-        "http://localhost:5000/api/payments/record",
+        `${import.meta.env.VITE_BACKEND_URL}/api/payments/record`,
         {
           reference,
           name: form.name,
@@ -59,9 +60,9 @@ export default function PaymentPage() {
     }
 
     const handler = window.PaystackPop.setup({
-      key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY, // public key
+      key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
       email: form.email,
-      amount: form.amount * 100, // GHS to kobo
+      amount: form.amount * 100, // convert GHS to kobo
       currency: "GHS",
       ref: `site-${Math.floor(Math.random() * 1000000000)}`,
       metadata: {
@@ -71,7 +72,7 @@ export default function PaymentPage() {
         ],
       },
       callback: function (response) {
-        // Save info to localStorage for Thank You page
+        // Save payment info for Thank You page
         localStorage.setItem(
           "paymentInfo",
           JSON.stringify({
@@ -82,7 +83,7 @@ export default function PaymentPage() {
           })
         );
 
-        recordPayment(response.reference); // record in backend
+        recordPayment(response.reference);
         setLoading(false);
         navigate("/thank-you"); // redirect
       },
@@ -100,13 +101,13 @@ export default function PaymentPage() {
       <h1>Pay with Paystack</h1>
       <form onSubmit={handlePayment}>
         <label>Name:</label>
-        <input type="text" name="name" value={form.name} onChange={handleChange} required />
+        <input type="text" name="name" value={form.name} onChange={handleChange} required disabled={loading} />
 
         <label>Email:</label>
-        <input type="email" name="email" value={form.email} onChange={handleChange} required />
+        <input type="email" name="email" value={form.email} onChange={handleChange} required disabled={loading} />
 
         <label>Type of Website:</label>
-        <select name="siteType" value={form.siteType} onChange={handleChange} required>
+        <select name="siteType" value={form.siteType} onChange={handleChange} required disabled={loading}>
           <option value="">-- Select a site type --</option>
           {Object.keys(SITE_TYPES).map((type) => (
             <option key={type} value={type}>
@@ -123,6 +124,7 @@ export default function PaymentPage() {
           onChange={handleChange}
           placeholder="Enter amount in GHS"
           required
+          disabled={loading}
         />
 
         <button type="submit" disabled={loading}>
