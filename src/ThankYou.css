@@ -1,0 +1,89 @@
+/* Container styling */
+.thankyou-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px 20px;
+  border-radius: 15px;
+  margin: 50px auto;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading styling */
+.thankyou-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation: bounce 1s ease;
+}
+
+/* Paragraph styling */
+.thankyou-container p {
+  font-size: 1.2rem;
+  margin: 8px 0;
+}
+
+/* Optional "Back to Home" button */
+.thankyou-container button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #2575fc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.thankyou-container button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bounce animation for heading */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .thankyou-container {
+    padding: 30px 15px;
+  }
+
+  .thankyou-container h1 {
+    font-size: 2rem;
+  }
+
+  .thankyou-container p {
+    font-size: 1rem;
+  }
+}
